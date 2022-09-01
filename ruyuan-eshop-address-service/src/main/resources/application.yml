@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: ruyuan-eshop-address
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.129.110:3306/ruyuan_eshop_address?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: $Waves0214
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.129.110:8848
+        username: nacos
+        password: nacos
+    sentinel:
+      transport:
+        dashboard: 192.168.129.110:8080
+        port: 18012
+
+  redis:
+    host: 192.168.129.110
+    port: 6379
+    timeout: 3000
+
+server:
+  port: 8012
+
+dubbo:
+  scan:
+    base-packages: com.ruyuan.eshop.address.api
+  registry:
+    address: spring-cloud://192.168.129.110
+  protocol:
+    name: dubbo
+    port: 28092
+  consumer:
+    check: false
+  provider:
+    threads: 800
+    actives: 200
+  cloud:
+    subscribed-services:
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
